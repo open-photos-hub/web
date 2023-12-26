@@ -1,22 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Middleware\TrustProxies as Middleware;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Request;
 
-class TrustProxies extends Middleware
+final class TrustProxies extends Middleware
 {
     /**
-     * The trusted proxies for this application.
-     *
-     * @var array<int, string>|string|null
+     * @var array<int,string>|string|null
      */
     protected $proxies;
 
     /**
-     * The headers that should be used to detect proxies.
-     *
      * @var int
      */
     protected $headers =
