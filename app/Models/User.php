@@ -6,8 +6,10 @@ namespace App\Models;
 
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +24,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property null|CarbonInterface $created_at
  * @property null|CarbonInterface $updated_at
  * @property null|CarbonInterface $deleted_at
+ * @property Collection<Photo> $photos
  */
 final class User extends Authenticatable implements MustVerifyEmail
 {
@@ -54,4 +57,12 @@ final class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function photos(): HasMany
+    {
+        return $this->hasMany(
+            related: Photo::class,
+            foreignKey: 'user_id',
+        );
+    }
 }
